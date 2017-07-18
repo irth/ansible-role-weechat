@@ -7,31 +7,50 @@ reload(sys)
 default_encoding = sys.getdefaultencoding()
 sys.setdefaultencoding('utf-8')
 
+blue = w.color("blue")
+cyan = w.color("cyan")
+
 
 def configure(filename):
-    w.prnt("", "Loading config from %s" % filename)
+    w.prnt("", "%sLoading config from %s%s" % (blue, cyan, filename))
     config = {}
     with open(filename) as f:
         config = json.load(f)
     for key in config:
         option = w.config_get(key)
         value = '%s' % config[key]
-        w.prnt("", "setting %s to %s" % (key, value))
+        w.prnt("", "%sSetting %s%s%s to %s%s" %
+               (blue, cyan, key, blue, cyan, value))
         w.config_option_set(option, value, 1)
     os.remove(filename)
 
 
+def run_commands(filename):
+    w.prnt("", "%sLoading commands from %s%s" % (blue, cyan, filename))
+    commands = []
+    with open(filename) as f:
+        commands = json.load(f)
+    for command in commands:
+        w.prnt("", "%sRunning: %s%s" % (blue, cyan, command))
+        w.command("", command)
+    os.remove(filename)
+
+
+def get_path(name):
+    return w.string_eval_path_home('%%h/ansible_%s.json' % name, {}, {}, {})
+
+
 def run():
-    try:
-        configure('/tmp/weechat.json')
-        configure('/tmp/weechat_encrypted.json')
-        w.command('', '/save')
-        w.command('', '/upgrade')
-    except IOError:
-        sys.setdefaultencoding(default_encoding)
-        w.hook_signal_send("python_script_remove",
-                           w.WEECHAT_HOOK_SIGNAL_STRING, "ansible_config.py")
-    return w.WEECHAT_RC_OK
+    configure(get_path('weechat'))
+    configure(get_path('weechat_encrypted'))
+    run_commands(get_path('weechat_commands'))
+    run_commands(get_path('weechat_commands_encrypted'))
+    w.command('', '/save')
+    w.command('', '/redraw')
+    w.command('', '/connect -auto')
+    sys.setdefaultencoding(default_encoding)
+    w.hook_signal_send("python_script_remove",
+                       w.WEECHAT_HOOK_SIGNAL_STRING, "ansible_config.py")
 
 
 w.register("ansible_config", "irth", "0.1", "MIT",

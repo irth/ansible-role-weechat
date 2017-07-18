@@ -9,4 +9,6 @@ weechat_dir: ~/.weechat
 weechat_plugins: []
 weechat_settings: {}
 weechat_settings_encrypted: {}
+weechat_commands: []
+weechat_commands_encrypted: []
 weechat_secure: {}

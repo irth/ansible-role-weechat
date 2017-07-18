@@ -5,8 +5,16 @@
 - name: writing config
   copy:
     content: '{{ weechat_settings }}'
-    dest: /tmp/weechat.json
+    dest: '{{ weechat_dir }}/ansible_weechat.json'
 - name: writing config (encrypted)
   copy:
     content: '{{ weechat_settings_encrypted }}'
-    dest: /tmp/weechat_encrypted.json
+    dest: '{{ weechat_dir }}/ansible_weechat_encrypted.json'
+- name: writing commands
+  copy:
+    content: '{{ weechat_commands }}'
+    dest: '{{ weechat_dir }}/ansible_weechat_commands.json'
+- name: writing commands (encrypted)
+  copy:
+    content: '{{ weechat_commands_encrypted }}'
+    dest: '{{ weechat_dir }}/ansible_weechat_commands_encrypted.json'
