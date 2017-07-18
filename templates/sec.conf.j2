@@ -17,3 +17,6 @@ salt = on
 
 [data]
 __passphrase__ = off
+{% for option in weechat_secure %}
+{{ option }} = "{{ weechat_secure[option] }}"
+{% endfor %}

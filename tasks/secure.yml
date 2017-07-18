@@ -1,13 +1,2 @@
-- name: removing old secure settings
-  file: 'path={{ weechat_dir }}/sec.conf state=absent'
-- name: copying sec.conf skeleton
-  copy: 'src=files/sec.conf dest={{ weechat_dir }}/sec.conf'
 - name: storing secure settings
-  ini_file:
-    path: '{{ weechat_dir }}/sec.conf'
-    section: data
-    option: '{{secure.key}}'
-    value: '{{secure.value}}'
-  with_dict: '{{weechat_secure}}'
-  loop_control:
-    loop_var: secure
+  template: 'src=templates/sec.conf.j2 dest={{weechat_dir}}/sec.conf'
