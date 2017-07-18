@@ -1,0 +1,5 @@
+- name: 'create {{weechat_dir}}'
+  file: 'path={{weechat_dir}} state=directory'
+- name: create plugin directories
+  file: 'path={{weechat_dir}}/{{item.value}}/autoload state=directory'
+  with_dict: '{{weechat_plugin_languages}}'

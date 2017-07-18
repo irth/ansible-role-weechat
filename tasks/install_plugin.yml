@@ -1,0 +1,17 @@
+- name: installing plugins
+  get_url:
+    url: 'https://weechat.org/files/scripts/{{ item }}'
+    dest: >-
+      {{weechat_dir}}/{{weechat_plugin_languages[item.split(".",1)[-1]]}}/{{
+      item }}
+  with_items: '{{ weechat_plugins }}'
+- name: symlinking plugins to autoload
+  file:
+    src: >-
+      {{weechat_dir}}/{{weechat_plugin_languages[item.split(".",1)[-1]]}}/{{
+      item }}
+    dest: >-
+      {{weechat_dir}}/{{weechat_plugin_languages[item.split(".",1)[-1]]}}/autoload/{{
+      item }}
+    state: link
+  with_items: '{{ weechat_plugins }}'

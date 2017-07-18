@@ -1,0 +1,14 @@
+- name: configuring weechat
+  include: >-
+    settings_file.yml file={{config_file.key}}.conf
+    sections={{config_file.value}}
+  with_dict: '{{weechat_settings}}'
+  loop_control:
+    loop_var: config_file
+- name: configuring weechat (encrypted settings)
+  include: >-
+    settings_file.yml file={{config_file.key}}.conf
+    sections={{config_file.value}}
+  with_dict: '{{weechat_settings_encrypted}}'
+  loop_control:
+    loop_var: config_file

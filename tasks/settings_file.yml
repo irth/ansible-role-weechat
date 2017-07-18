@@ -1,0 +1,7 @@
+- name: 'configuring: {{file}}'
+  include: >-
+    settings_section.yml section={{config_section.key}}
+    keys={{config_section.value}}
+  with_dict: '{{sections}}'
+  loop_control:
+    loop_var: config_section

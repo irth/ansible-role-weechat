@@ -1,0 +1,9 @@
+- name: 'configuring: {{file}}/{{section}}'
+  with_dict: '{{keys}}'
+  ini_file:
+    path: '{{ weechat_dir }}/{{file}}'
+    section: '{{ section }}'
+    option: '{{setting.key}}'
+    value: '{{setting.value}}'
+  loop_control:
+    loop_var: setting

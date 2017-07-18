@@ -1,0 +1,12 @@
+weechat_plugin_languages:
+  pl: perl
+  scm: guile
+  js: javascript
+  py: python
+  rb: ruby
+  lua: lua
+weechat_dir: ~/.weechat
+weechat_plugins: []
+weechat_settings: {}
+weechat_settings_encrypted: {}
+weechat_secure: {}

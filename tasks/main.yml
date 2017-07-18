@@ -1,0 +1,4 @@
+- include: init_dir.yml
+- include: install_plugin.yml
+- include: settings.yml
+- include: secure.yml
