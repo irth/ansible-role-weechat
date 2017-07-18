@@ -51,3 +51,5 @@ weechat_secure:
 ```
 To access `foo`'s value in `weechat_settings*` use `${sec.data.foo}`.
 Make sure to set `weechat_secure_password` so that the data is encrypted at rest.
+
+**WARNING:** your data **and** your encryption password are stored in plaintext on the server until the first time you start weechat!

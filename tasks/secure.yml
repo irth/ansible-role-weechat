@@ -11,8 +11,3 @@
   with_dict: '{{weechat_secure}}'
   loop_control:
     loop_var: secure
-- name: encrypting secure settings
-  command: >-
-    weechat --dir {{ weechat_dir }} -r '/secure passphrase {{
-    weechat_secure_password }};/save;/quit -yes'
-  when: weechat_secure_password is defined

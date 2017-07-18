@@ -16,5 +16,8 @@
     dest: '{{ weechat_dir }}/ansible_weechat_commands.json'
 - name: writing commands (encrypted)
   copy:
-    content: '{{ weechat_commands_encrypted }}'
+    content: >-
+      {% if weechat_secure_password is not defined %}{{
+      weechat_commands_encrypted }}{% else %}{{ weechat_commands_encrypted +
+      ["/secure passphrase "+weechat_secure_password]}}{%endif%}
     dest: '{{ weechat_dir }}/ansible_weechat_commands_encrypted.json'
