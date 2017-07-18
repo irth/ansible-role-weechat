@@ -1,14 +1,12 @@
-- name: configuring weechat
-  include: >-
-    settings_file.yml file={{config_file.key}}.conf
-    sections={{config_file.value}}
-  with_dict: '{{weechat_settings}}'
-  loop_control:
-    loop_var: config_file
-- name: configuring weechat (encrypted settings)
-  include: >-
-    settings_file.yml file={{config_file.key}}.conf
-    sections={{config_file.value}}
-  with_dict: '{{weechat_settings_encrypted}}'
-  loop_control:
-    loop_var: config_file
+- name: installing config plugin
+  copy:
+    src: files/ansible_config.py
+    dest: '{{weechat_dir}}/python/autoload/ansible_config.py'
+- name: writing config
+  copy:
+    content: '{{ weechat_settings }}'
+    dest: /tmp/weechat.json
+- name: writing config (encrypted)
+  copy:
+    content: '{{ weechat_settings_encrypted }}'
+    dest: /tmp/weechat_encrypted.json
