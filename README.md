@@ -27,42 +27,22 @@ Specify the config in `host_vars` or wherever else you want.
   ```
 * **weechat\_settings, weechat\_settings\_encrypted, weechat_secure** - dicts with settings, see below for detail
 * **weechat\_secure\_password** - if set, it will be used to encrypt weechat's sec.conf
+* **weechat\_commands, weechat\_commands\_encrypted** - lists of commands to run (include the leading slash, `/command`)
 
 ## Configuration
 The format for `weechat_settings` and `weechat_settings_encrypted` is as follows:
 
 ```yaml
 weechat_settings:
-  file1:
-    section1:
-      setting1: value1
-    section2:
-      settingA: valueB
-      foo: bar
-  file2:
-    section_X:
-      key: val
+  foo.bar.baz: 1
 ```
 
-**file** - is weechat's config filename without.conf, so:
-```
-# me @ not-a-mac in ~/.weechat [16:10:16]
-$ ls *.conf
-alias.conf   charset.conf  fifo.conf  iset.conf    plugins.conf  script.conf  trigger.conf  xfer.conf
-aspell.conf  exec.conf     irc.conf   logger.conf  relay.conf    sec.conf     weechat.conf
-```
-don't manage sec.conf from here, as it will be overwriten anyway
+you can't insert new options (basically it can only do what /set can)
 
-**section, setting**
-```
-$ sed '/^#/d' irc.conf|head -n 3
+don't manage `sec.*` from here, as it will be overwriten anyway
 
-[look]
-buffer_open_before_autojoin = on
-```
-The **section** here is `look`, the **setting** `buffer_open_before_autojoin`, and the value: `on`.
 
-**weechat\_settings\_encrypted** is provided for convenience, it's (deep) merged with **weechat_settings**. You can store it in a separate, Vault-encrypted vars file to hide some of the config that's sensitive but not suitable for storing in weechat's `sec.conf`.
+**weechat\_settings\_encrypted** is provided for convenience, it's merged with **weechat_settings**. You can store it in a separate, Vault-encrypted vars file to hide some of the config that's sensitive but not suitable for storing in weechat's `sec.conf`.
 
 **weechat_secure** is a simple dict, it's values will be stored in sec.conf.
 ```yaml
