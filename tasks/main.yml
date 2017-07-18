@@ -1,3 +1,4 @@
+- include: install.yml
 - include: init_dir.yml
 - include: install_plugin.yml
 - include: settings.yml
